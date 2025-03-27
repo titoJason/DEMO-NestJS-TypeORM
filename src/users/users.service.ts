@@ -62,7 +62,9 @@ export class UsersService {
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.findOneBy({ id });
 
-    if (!user) throw new NotFoundException('User Not Found')
+    if (!user) throw new NotFoundException('Update User Error', {
+      description: 'User Not Found'
+    })
 
     console.log("🚀 Fetched User: ", user);
 
