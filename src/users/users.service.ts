@@ -81,11 +81,18 @@ export class UsersService {
       user
     );
 
-    const result = await this.userRepository.save(updatedUser);
+    try {
+      const result = await this.userRepository.save(updatedUser);
 
-    console.log("🏠 Update Result: ", result);
+      console.log("🏠 Update Result: ", result);
 
-    return result;
+      return result;
+    } catch (error) {
+      throw new BadRequestException('Update User Error', {
+        cause: error,
+        description: error.message
+      })
+    }
   }
 
   async remove(id: number) {
